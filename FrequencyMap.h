@@ -9,18 +9,28 @@
 #include <map>
 
 class FrequencyMap {
-private:
-	std::map<char, int> count_map;
-	int total;
-
 public:
+    typedef enum MODE {
+        character,
+        word
+    } MODE;
+
 	FrequencyMap();
 	~FrequencyMap();
 
-	void inc(char c);
+	void inc(const std::string &s);
 	void print() const;
-};
 
-void FrequencyMap_from_file(std::string fn);
+    static FrequencyMap* from_file(const std::string &fn, MODE m);
+
+private:
+
+    std::map<std::string, int> count_map;
+    int total;
+    MODE m;
+
+    void parse_as_word(char *buffer);
+    void parse_as_char(char *buffer, int bf_size);
+};
 
 #endif //PAA_FREQUENCYMAP_H

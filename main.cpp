@@ -3,6 +3,7 @@
 #include "FrequencyMap.h"
 
 int main() {
-	FrequencyMap_from_file("lorem.txt");
+	FrequencyMap *fm = FrequencyMap::from_file("lorem.txt", FrequencyMap::MODE::character);
+    fm->print();
     return 0;
 }

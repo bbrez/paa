@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <functional>
 
 #include "util.h"
 
@@ -16,30 +17,49 @@ FrequencyMap::FrequencyMap() {
 
 FrequencyMap::~FrequencyMap() = default;
 
-void FrequencyMap::inc(char c) {
-	if(this->count_map.contains(c)){
-		this->count_map.insert_or_assign(c, this->count_map.at(c)+1);
+void FrequencyMap::inc(const std::string& s) {
+	if(this->count_map.contains(s)){
+		this->count_map.insert_or_assign(s, this->count_map.at(s)+1);
 	} else {
-		this->count_map.emplace(c, 1);
+		this->count_map.emplace(s, 1);
 	}
 	this->total++;
 }
 
 void FrequencyMap::print() const {
 
-	auto print_no = [](const auto &no){
-		std::cout << "[";
-		if(is_printable(no.first))
-			std::cout << no.first;
-		else
-			std::cout << "\\0x" << std::uppercase << std::hex << (int)no.first << std::dec;
-		std::cout << "] = " << no.second << '\n';
-	};
+    auto print_no = [](const auto &no){
+        std::cout << "[";
+
+        if(no.first.length() == 1) {
+            if (!is_printable(no.first.c_str()[0])) {
+                std::cout << "\\0x" << std::uppercase << std::hex << (int) no.first.c_str()[0] << std::dec;
+            } else {
+                std::cout << no.first;
+            }
+        } else {
+            std::cout << no.first;
+        }
+
+        std::cout << "] = " << no.second << '\n';
+    };
 
 	for(const auto &no: this->count_map) { print_no(no); }
 }
 
-void FrequencyMap_from_file(std::string fn) {
+
+void FrequencyMap::parse_as_word(char *buffer) {
+
+}
+
+
+void FrequencyMap::parse_as_char(char *buffer, int bf_size) {
+    for(int i = 0 ; i < bf_size ; ++i){
+        this->inc(std::string(1, buffer[i]));
+    }
+}
+
+FrequencyMap *FrequencyMap::from_file(const std::string &fn, MODE m) {
 	auto *fm = new FrequencyMap();
 
     std::ifstream entrada(fn);
@@ -49,12 +69,15 @@ void FrequencyMap_from_file(std::string fn) {
 		char *buffer = new char[512];
 		entrada.read(buffer, 512);
 
-		for(int i = 0; i < entrada.gcount() ; ++i){
-			fm->inc(buffer[i]);
-		}
+
+		if(m == FrequencyMap::MODE::character){
+            fm->parse_as_char(buffer, entrada.gcount());
+        } else if (m == FrequencyMap::MODE::word){
+            fm->parse_as_word(buffer);
+        }
 
 		delete[] buffer;
 	}
 
-	fm->print();
+    return fm;
 }
