@@ -8,6 +8,8 @@
 #include <fstream>
 #include <regex>
 
+#include <map>
+
 #include "util.h"
 
 
@@ -63,7 +65,9 @@ void FrequencyMap::print() const {
         std::cout << "] = " << no.second << '\n';
     };
 
-	for(const auto &no: this->count_map) { print_no(no); }
+    std::vector<std::pair<std::string, int>> node_vector(this->count_map.begin(), this->count_map.end());
+    std::sort(node_vector.begin(), node_vector.end());
+    for(const auto &no: node_vector) { print_no(no); }
 }
 
 /**
@@ -113,8 +117,8 @@ void FrequencyMap::parse_as_char(std::ifstream &entrada) {
 /**
  * @brief 
  * 
- * @param fn 
- * @param m 
+ * @param fn nome do arquivo
+ * @param m modo de interpretação do arquivo
  * @return FrequencyMap* 
  */
 FrequencyMap *FrequencyMap::from_file(const std::string &fn, MODE m) {

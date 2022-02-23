@@ -12,7 +12,7 @@ bool is_printable(char c) {
 
 
 bool is_separator(char c){
-    std::vector<char> separator_list = {' ', ',', '.', '?', '!', ';', '\n', ':'};
+    std::vector<char> separator_list = {' ', ',', '.', '?', '!', ';', '\n', '\t', '\r', ':', '(', ')', '[', ']'};
 
     auto compare = [c](char comp){
         return c == comp;

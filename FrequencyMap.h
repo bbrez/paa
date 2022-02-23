@@ -6,7 +6,7 @@
 #define PAA_FREQUENCYMAP_H
 
 #include <string>
-#include <map>
+#include <unordered_map>
 
 class FrequencyMap {
 public:
@@ -26,7 +26,7 @@ public:
 
 private:
 
-    std::map<std::string, int> count_map;
+    std::unordered_map<std::string, int> count_map;
     int total;
 
     void parse_as_word(std::ifstream &entrada);
