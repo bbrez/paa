@@ -144,3 +144,7 @@ FrequencyMap *FrequencyMap::from_file(const std::string &fn, MODE m) {
 
     return fm;
 }
+
+const std::unordered_map<std::string, int> &FrequencyMap::get_map() const {
+    return this->count_map;
+}

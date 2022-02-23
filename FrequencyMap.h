@@ -22,6 +22,8 @@ public:
     void inc(char c);
 	void print() const;
 
+    const std::unordered_map<std::string, int> &get_map() const;
+
     static FrequencyMap* from_file(const std::string &fn, MODE m);
 
 private:
