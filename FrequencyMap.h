@@ -15,10 +15,11 @@ public:
         word
     } MODE;
 
-	FrequencyMap();
+	explicit FrequencyMap();
 	~FrequencyMap();
 
-	void inc(const std::string &s);
+	void inc(const std::string& s);
+    void inc(char c);
 	void print() const;
 
     static FrequencyMap* from_file(const std::string &fn, MODE m);
@@ -27,10 +28,9 @@ private:
 
     std::map<std::string, int> count_map;
     int total;
-    MODE m;
 
-    void parse_as_word(char *buffer);
-    void parse_as_char(char *buffer, int bf_size);
+    void parse_as_word(std::ifstream &entrada);
+    void parse_as_char(std::ifstream &entrada);
 };
 
 #endif //PAA_FREQUENCYMAP_H

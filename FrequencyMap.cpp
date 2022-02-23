@@ -6,7 +6,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <functional>
+#include <regex>
 
 #include "util.h"
 
@@ -15,8 +15,14 @@ FrequencyMap::FrequencyMap() {
 	this->total = 0;
 }
 
+
 FrequencyMap::~FrequencyMap() = default;
 
+/**
+ * @brief 
+ * 
+ * @param s 
+ */
 void FrequencyMap::inc(const std::string& s) {
 	if(this->count_map.contains(s)){
 		this->count_map.insert_or_assign(s, this->count_map.at(s)+1);
@@ -26,6 +32,19 @@ void FrequencyMap::inc(const std::string& s) {
 	this->total++;
 }
 
+/**
+ * @brief 
+ * 
+ * @param c 
+ */
+void FrequencyMap::inc(const char c){
+    this->inc(std::string(1, c));
+}
+
+/**
+ * @brief 
+ * 
+ */
 void FrequencyMap::print() const {
 
     auto print_no = [](const auto &no){
@@ -47,37 +66,77 @@ void FrequencyMap::print() const {
 	for(const auto &no: this->count_map) { print_no(no); }
 }
 
+/**
+ * @brief 
+ * 
+ * @param entrada 
+ */
+void FrequencyMap::parse_as_word(std::ifstream &entrada) {
 
-void FrequencyMap::parse_as_word(char *buffer) {
+    std::stringstream buffer("");
+    while(!entrada.eof()) {
+        char lido = entrada.get();
+
+        if(!is_separator(lido)){
+            buffer << lido;
+        } else {
+            if(buffer.str().length() != 0){
+                this->inc(buffer.str());
+                buffer.str(""); //limpa a string
+            }
+            this->inc(lido); //cria uma string de um caractere
+        }
+    }
 
 }
 
+/**
+ * @brief 
+ * 
+ * @param entrada 
+ */
+void FrequencyMap::parse_as_char(std::ifstream &entrada) {
+    const int bf_size = 512;
 
-void FrequencyMap::parse_as_char(char *buffer, int bf_size) {
-    for(int i = 0 ; i < bf_size ; ++i){
-        this->inc(std::string(1, buffer[i]));
+    while(!entrada.eof()) {
+        char *buffer = new char[bf_size];
+        entrada.read(buffer, bf_size);
+
+        for(const auto &c: std::string(buffer)){
+            this->inc(c);
+        }
+
+        delete[] buffer;
     }
 }
 
+/**
+ * @brief 
+ * 
+ * @param fn 
+ * @param m 
+ * @return FrequencyMap* 
+ */
 FrequencyMap *FrequencyMap::from_file(const std::string &fn, MODE m) {
-	auto *fm = new FrequencyMap();
+    auto *fm = new FrequencyMap();
 
     std::ifstream entrada(fn);
-	if(!entrada.is_open()) std::cout << "Erro ao abrir arquivo" << std::endl;
+    if(!entrada.is_open()){
+        std::cout << "Erro ao abrir arquivo: [" << fn << "]\n";
+        std::abort();
+    }
 
-	while(!entrada.eof()){
-		char *buffer = new char[512];
-		entrada.read(buffer, 512);
-
-
-		if(m == FrequencyMap::MODE::character){
-            fm->parse_as_char(buffer, entrada.gcount());
-        } else if (m == FrequencyMap::MODE::word){
-            fm->parse_as_word(buffer);
-        }
-
-		delete[] buffer;
-	}
+    switch (m) {
+        case word:
+            fm->parse_as_word(entrada);
+            break;
+        case character:
+            fm->parse_as_char(entrada);
+            break;
+        default:
+            std::cout << "Modo de operação invalido\n";
+            std::abort();
+    }
 
     return fm;
 }

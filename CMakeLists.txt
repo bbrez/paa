@@ -4,3 +4,4 @@ project(paa)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(paa main.cpp FrequencyMap.cpp FrequencyMap.h util.cpp util.h)
+target_compile_options(paa PRIVATE -Wall -Wextra -Wpedantic)
