@@ -2,15 +2,14 @@
 #include "Compression.h"
 
 #include <iostream>
-#include <locale>
 
 int main() {
 
-    //std::cout << std::setlocale(LC_ALL, "pt_BR.UTF-8") << '\n';
+    std::setlocale(LC_ALL, "pt_BR.UTF-8");
 
-	FrequencyMap *fm = FrequencyMap::from_file("biblia-em-txt.txt", FrequencyMap::MODE::character);
+	FrequencyMap *fm = FrequencyMap::from_file("biblia-em-txt.txt", FrequencyMap::MODE::word);
+//    fm->print();
     Compression c(*fm);
-    c.print();
 
     delete fm;
     return 0;

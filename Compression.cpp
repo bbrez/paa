@@ -8,33 +8,31 @@
 
 #include "util.h"
 
-Compression::Compression(FrequencyMap fm) {
+Compression::Compression(const FrequencyMap& fm) {
+
+    this->prio_queue = new std::priority_queue<tree_node, std::vector<tree_node>, decltype(cmp)>(cmp);
     for (const auto &no: fm.get_map()) {
-        this->prio_queue.push(no);
+        tree_node no_arv;
+        no_arv.value = no;
+        this->prio_queue->push(no_arv);
     }
 }
 
-void Compression::print() {
-
-    auto print_no = [](const auto &no){
-        std::cout << "[";
-
-        if(no.first.length() == 1) {
-            if (!is_printable(no.first.c_str()[0])) {
-                std::cout << "\\0x" << std::uppercase << std::hex << (int) no.first.c_str()[0] << std::dec;
-            } else {
-                std::cout << no.first;
-            }
-        } else {
-            std::cout << no.first;
-        }
-
-        std::cout << "] = " << no.second << '\n';
+void Compression::build_tree() {
+    auto top_pop = [](auto queue) {
+        auto node = queue->top();
+        queue->pop();
+        return node;
     };
 
-
-    while(!this->prio_queue.empty()){
-        print_no(this->prio_queue.top());
-        this->prio_queue.pop();
+    unsigned int tam_alf = this->prio_queue->size();
+    for(unsigned int i = 0 ; i < tam_alf - 1 ; ++i){
+        tree_node z;
+        tree_node x = top_pop(this->prio_queue);
+        tree_node y = top_pop(this->prio_queue);
+        z.left = &x;
+        z.right = &y;
+        z.value.second = x.value.second + y.value.second;
+        this->prio_queue->push(z);
     }
 }
