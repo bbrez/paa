@@ -16,11 +16,13 @@ public:
     ~Compression() = default;
 
     void build_tree();
+    void print_tree() const;
 
 private:
     struct tree_node {
+        bool is_folha;
         std::pair<std::string, int> value;
-        struct tree_node *left = nullptr, *right = nullptr;
+        struct tree_node *left, *right;
     };
 
     constexpr static auto cmp = [](const tree_node& left, const tree_node& right){
@@ -28,6 +30,8 @@ private:
     };
 
     std::priority_queue<tree_node, std::vector<tree_node>, decltype(cmp)> *prio_queue;
+
+    void print_no(const tree_node& no) const;
 };
 
 

@@ -68,6 +68,7 @@ void FrequencyMap::print() const {
     std::vector<std::pair<std::string, int>> node_vector(this->count_map.begin(), this->count_map.end());
     std::sort(node_vector.begin(), node_vector.end());
     for(const auto &no: node_vector) { print_no(no); }
+    std::cout << "Total = " << this->total << '\n';
 }
 
 /**

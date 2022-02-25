@@ -14,8 +14,28 @@ Compression::Compression(const FrequencyMap& fm) {
     for (const auto &no: fm.get_map()) {
         tree_node no_arv;
         no_arv.value = no;
+        no_arv.is_folha = true;
+        no_arv.left = nullptr;
+        no_arv.right = nullptr;
         this->prio_queue->push(no_arv);
     }
+}
+
+void Compression::print_no(const Compression::tree_node& no) const{
+    if(no.is_folha){
+        std::cout << "[(" << no.value.second << ", " << no.value.first << "), *, *]";
+    } else {
+        std::cout << "[" << no.value.second;
+        if(no.left != nullptr) print_no(*no.left);
+        else std::cout << ", *";
+        if(no.right != nullptr) print_no(*no.right);
+        else std::cout << ", *";
+        std::cout << "]";
+    }
+}
+
+void Compression::print_tree() const{
+    this->print_no(this->prio_queue->top());
 }
 
 void Compression::build_tree() {
@@ -26,12 +46,14 @@ void Compression::build_tree() {
     };
 
     unsigned int tam_alf = this->prio_queue->size();
-    for(unsigned int i = 0 ; i < tam_alf - 1 ; ++i){
+    while(this->prio_queue->size()!= 1){
         tree_node z;
         tree_node x = top_pop(this->prio_queue);
         tree_node y = top_pop(this->prio_queue);
+        z.is_folha = false;
         z.left = &x;
         z.right = &y;
+        z.value.first = "";
         z.value.second = x.value.second + y.value.second;
         this->prio_queue->push(z);
     }
