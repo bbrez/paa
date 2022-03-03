@@ -93,6 +93,10 @@ void FrequencyMap::parse_as_word(std::ifstream &entrada) {
         }
     }
 
+    if(buffer.str().length() != 0){
+        this->inc(buffer.str());
+    }
+
 }
 
 /**

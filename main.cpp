@@ -1,18 +1,18 @@
 #include "FrequencyMap.h"
-#include "Compression.h"
+#include "HuffmanTree.h"
 
 #include <iostream>
 
 int main() {
 
-    std::setlocale(LC_ALL, "pt_BR.UTF-8");
+    //std::setlocale(LC_ALL, "pt_BR.UTF-8");
 
-	FrequencyMap *fm = FrequencyMap::from_file("lorem.txt", FrequencyMap::MODE::word);
+	FrequencyMap *fm = FrequencyMap::from_file("pi.txt", FrequencyMap::MODE::character);
     fm->print();
-    Compression c(*fm);
+    HuffmanTree ht(*fm);
     delete fm;
-    c.build_tree();
-    c.print_tree();
-
+    ht.build_tree();
+    ht.print_tree();
+    ht.compress("pi.txt", "pi.cmp");
     return 0;
 }

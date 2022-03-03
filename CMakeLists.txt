@@ -3,5 +3,5 @@ project(paa)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(paa main.cpp FrequencyMap.cpp FrequencyMap.h util.cpp util.h Compression.cpp Compression.h)
+add_executable(paa main.cpp FrequencyMap.cpp FrequencyMap.h util.cpp util.h HuffmanTree.cpp HuffmanTree.h)
 target_compile_options(paa PRIVATE -Wall -Wextra -Wpedantic)
