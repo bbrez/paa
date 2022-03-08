@@ -5,13 +5,14 @@
 #include "util.h"
 
 #include <algorithm>
+#include <sstream>
 
-bool is_printable(char c) {
-	return c > 32 || c < 0;
+bool is_printable(unsigned char c) {
+	return c > 32;
 }
 
 
-bool is_separator(char c){
+bool is_separator(unsigned char c){
     std::vector<char> separator_list = {' ', ',', '.', '?', '!', ';', '\n', '\t', '\r',
                                         ':', '(', ')', '[', ']', '{', '}', '\'', '\"'};
 
@@ -25,4 +26,10 @@ bool is_separator(char c){
 //        if(comp == c) return true;
 //    }
 //    return false;
+}
+
+std::string to_hex(unsigned char c) {
+    std::stringstream buffer;
+    buffer << "\\0x" << std::uppercase << std::hex << (int)c << std::dec;
+    return buffer.str();
 }

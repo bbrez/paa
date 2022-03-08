@@ -16,10 +16,11 @@ public:
     } MODE;
 
 	explicit FrequencyMap();
+    explicit FrequencyMap(const std::string &fn, MODE m);
 	~FrequencyMap();
 
 	void inc(const std::string& s);
-    void inc(char c);
+    void inc(unsigned char c);
 	void print() const;
 
     const std::unordered_map<std::string, int> &get_map() const;

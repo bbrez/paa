@@ -13,7 +13,6 @@
 class HuffmanTree {
 public:
     explicit HuffmanTree(const FrequencyMap& fm);
-    explicit HuffmanTree(const std::string fn);
     ~HuffmanTree();
 
     void build_tree();

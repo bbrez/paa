@@ -5,7 +5,11 @@
 #ifndef PAA_UTIL_H
 #define PAA_UTIL_H
 
-bool is_printable(char c);
-bool is_separator(char c);
+#include <string>
+
+bool is_printable(unsigned char c);
+bool is_separator(unsigned char c);
+
+std::string to_hex(unsigned char c);
 
 #endif //PAA_UTIL_H

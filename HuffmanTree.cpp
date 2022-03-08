@@ -83,5 +83,7 @@ void HuffmanTree::compress(const std::string ifn, const std::string ofn) const {
     std::ifstream entrada(ifn);
     std::ofstream saida(ofn);
 
+    while(!entrada.eof()){
 
+    }
 }

@@ -39,7 +39,7 @@ void FrequencyMap::inc(const std::string& s) {
  * 
  * @param c 
  */
-void FrequencyMap::inc(const char c){
+void FrequencyMap::inc(const unsigned char c){
     this->inc(std::string(1, c));
 }
 
@@ -54,7 +54,7 @@ void FrequencyMap::print() const {
 
         if(no.first.length() == 1) {
             if (!is_printable(no.first.c_str()[0])) {
-                std::cout << "\\0x" << std::uppercase << std::hex << (int) no.first.c_str()[0] << std::dec;
+                std::cout << to_hex(no.first.c_str()[0]);
             } else {
                 std::cout << no.first;
             }
@@ -80,7 +80,7 @@ void FrequencyMap::parse_as_word(std::ifstream &entrada) {
 
     std::stringstream buffer("");
     while(!entrada.eof()) {
-        char lido = entrada.get();
+        unsigned char lido = entrada.get();
 
         if(!is_separator(lido)){
             buffer << lido;
