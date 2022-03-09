@@ -19,6 +19,9 @@ HuffmanTree::HuffmanTree(const FrequencyMap& fm) {
         no_arv->right = nullptr;
         this->prio_queue->push(no_arv);
     }
+
+	this->build_tree();
+	this->print_tree();
 }
 
 
@@ -80,15 +83,6 @@ void HuffmanTree::build_tree() {
     }
 
     HuffmanTree::generate_codes(this->prio_queue->top(), "");
-}
-
-void HuffmanTree::compress(const std::string& ifn, const std::string& ofn) const {
-    std::ifstream entrada(ifn);
-    std::ofstream saida(ofn);
-
-    while(!entrada.eof()){
-
-    }
 }
 
 void HuffmanTree::generate_codes(tree_node *node, const std::string& current_code) {

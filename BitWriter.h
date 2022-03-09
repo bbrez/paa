@@ -16,7 +16,7 @@ public:
     void close();
 private:
     unsigned char buffer;
-    int buffet_bits;
+    int buffer_bits;
     std::ofstream &saida;
 };
 

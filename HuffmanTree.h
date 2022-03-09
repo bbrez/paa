@@ -18,7 +18,6 @@ public:
     void build_tree();
     void print_tree() const;
 
-    void compress(const std::string& ifn, const std::string& ofn) const;
 private:
 
     struct tree_node {

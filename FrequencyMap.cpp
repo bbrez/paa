@@ -13,17 +13,34 @@
 #include "util.h"
 
 
-FrequencyMap::FrequencyMap() {
+FrequencyMap::FrequencyMap(const std::string &fn, FrequencyMap::MODE m) {
 	this->total = 0;
+
+	std::ifstream entrada(fn);
+	if(!entrada.is_open()){
+		std::cout << "Erro ao abrir arquivo: [" << fn << "]\n";
+		std::abort();
+	}
+
+	switch (m) {
+		case word:
+			this->parse_as_word(entrada);
+			break;
+		case character:
+			this->parse_as_char(entrada);
+			break;
+		default:
+			std::cout << "Modo de operação invalido\n";
+			std::abort();
+	}
+
 }
 
 
-FrequencyMap::~FrequencyMap() = default;
-
 /**
- * @brief 
- * 
- * @param s 
+ * @brief
+ *
+ * @param s
  */
 void FrequencyMap::inc(const std::string& s) {
 	if(this->count_map.contains(s)){
@@ -35,17 +52,17 @@ void FrequencyMap::inc(const std::string& s) {
 }
 
 /**
- * @brief 
- * 
- * @param c 
+ * @brief
+ *
+ * @param c
  */
 void FrequencyMap::inc(const unsigned char c){
     this->inc(std::string(1, c));
 }
 
 /**
- * @brief 
- * 
+ * @brief
+ *
  */
 void FrequencyMap::print() const {
 
@@ -72,9 +89,9 @@ void FrequencyMap::print() const {
 }
 
 /**
- * @brief 
- * 
- * @param entrada 
+ * @brief
+ *
+ * @param entrada
  */
 void FrequencyMap::parse_as_word(std::ifstream &entrada) {
 
@@ -101,9 +118,9 @@ void FrequencyMap::parse_as_word(std::ifstream &entrada) {
 }
 
 /**
- * @brief 
- * 
- * @param entrada 
+ * @brief
+ *
+ * @param entrada
  */
 void FrequencyMap::parse_as_char(std::ifstream &entrada) {
     const int bf_size = 512;
@@ -122,37 +139,11 @@ void FrequencyMap::parse_as_char(std::ifstream &entrada) {
     }
 }
 
-/**
- * @brief 
- * 
- * @param fn nome do arquivo
- * @param m modo de interpretação do arquivo
- * @return FrequencyMap* 
- */
-FrequencyMap *FrequencyMap::from_file(const std::string &fn, MODE m) {
-    auto *fm = new FrequencyMap();
-
-    std::ifstream entrada(fn);
-    if(!entrada.is_open()){
-        std::cout << "Erro ao abrir arquivo: [" << fn << "]\n";
-        std::abort();
-    }
-
-    switch (m) {
-        case word:
-            fm->parse_as_word(entrada);
-            break;
-        case character:
-            fm->parse_as_char(entrada);
-            break;
-        default:
-            std::cout << "Modo de operação invalido\n";
-            std::abort();
-    }
-
-    return fm;
-}
 
 const std::unordered_map<std::string, int> &FrequencyMap::get_map() const {
     return this->count_map;
+}
+
+int FrequencyMap::get_total() const {
+	return this->total;
 }

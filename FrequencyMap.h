@@ -15,17 +15,18 @@ public:
         word
     } MODE;
 
-	explicit FrequencyMap();
-    explicit FrequencyMap(const std::string &fn, MODE m);
-	~FrequencyMap();
+	FrequencyMap() = delete;
+	explicit FrequencyMap(const std::string &fn, MODE m);
+
+	~FrequencyMap() = default;
 
 	void inc(const std::string& s);
-    void inc(unsigned char c);
+	void inc(unsigned char c);
+
 	void print() const;
 
     const std::unordered_map<std::string, int> &get_map() const;
-
-    static FrequencyMap* from_file(const std::string &fn, MODE m);
+	int get_total() const;
 
 private:
 
