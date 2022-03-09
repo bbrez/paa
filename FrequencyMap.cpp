@@ -81,6 +81,7 @@ void FrequencyMap::parse_as_word(std::ifstream &entrada) {
     std::stringstream buffer("");
     while(!entrada.eof()) {
         unsigned char lido = entrada.get();
+        if(!entrada.good()) break;
 
         if(!is_separator(lido)){
             buffer << lido;
@@ -107,15 +108,17 @@ void FrequencyMap::parse_as_word(std::ifstream &entrada) {
 void FrequencyMap::parse_as_char(std::ifstream &entrada) {
     const int bf_size = 512;
 
+    std::string buffer;
+    buffer.resize(bf_size);
     while(!entrada.eof()) {
-        char *buffer = new char[bf_size];
-        entrada.read(buffer, bf_size);
+        //char *buffer = new char[bf_size];
+        entrada >> buffer;
 
-        for(const auto &c: std::string(buffer)){
+        for(const auto &c: buffer){
             this->inc(c);
         }
 
-        delete[] buffer;
+        buffer.clear();
     }
 }
 
