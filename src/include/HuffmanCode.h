@@ -2,18 +2,18 @@
 // Created by bbrez on 2/23/2022.
 //
 
-#ifndef PAA_HUFFMANTREE_H
-#define PAA_HUFFMANTREE_H
+#ifndef PAA_HUFFMANCODE_H
+#define PAA_HUFFMANCODE_H
 
 #include <string>
 #include <queue>
 
 #include "FrequencyMap.h"
 
-class HuffmanTree {
+class HuffmanCode {
 public:
-    explicit HuffmanTree(const FrequencyMap& fm);
-    ~HuffmanTree();
+    explicit HuffmanCode(const FrequencyMap& fm);
+    ~HuffmanCode();
 
     void build_tree();
     void print_tree() const;
@@ -39,4 +39,4 @@ private:
 };
 
 
-#endif //PAA_HUFFMANTREE_H
+#endif //PAA_HUFFMANCODE_H

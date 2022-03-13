@@ -3,5 +3,6 @@ project(paa)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(paa main.cpp FrequencyMap.cpp FrequencyMap.h util.cpp util.h HuffmanTree.cpp HuffmanTree.h BitWriter.cpp BitWriter.h)
+include_directories(src/include)
+add_executable(paa src/main.cpp src/FrequencyMap.cpp src/include/FrequencyMap.h src/util.cpp src/include/util.h src/HuffmanCode.cpp src/include/HuffmanCode.h src/BitWriter.cpp src/include/BitWriter.h)
 target_compile_options(paa PRIVATE -Wall -Wextra -Wpedantic)

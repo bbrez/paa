@@ -2,13 +2,13 @@
 // Created by bbrez on 2/23/2022.
 //
 
-#include "HuffmanTree.h"
+#include "HuffmanCode.h"
 
 #include <iostream>
 #include <fstream>
 
 
-HuffmanTree::HuffmanTree(const FrequencyMap& fm) {
+HuffmanCode::HuffmanCode(const FrequencyMap& fm) {
 
     this->prio_queue = new std::priority_queue<tree_node*, std::vector<tree_node*>, decltype(cmp)>(cmp);
     for (const auto &no: fm.get_map()) {
@@ -25,7 +25,7 @@ HuffmanTree::HuffmanTree(const FrequencyMap& fm) {
 }
 
 
-void HuffmanTree::delete_no(HuffmanTree::tree_node *no) {
+void HuffmanCode::delete_no(HuffmanCode::tree_node *no) {
     if(!no->is_folha){
         delete_no(no->left);
         delete_no(no->right);
@@ -34,7 +34,7 @@ void HuffmanTree::delete_no(HuffmanTree::tree_node *no) {
 }
 
 
-HuffmanTree::~HuffmanTree() {
+HuffmanCode::~HuffmanCode() {
     while(!prio_queue->empty()){
         delete_no(prio_queue->top());
         prio_queue->pop();
@@ -42,7 +42,7 @@ HuffmanTree::~HuffmanTree() {
 }
 
 
-void HuffmanTree::print_no(const HuffmanTree::tree_node *no) const {
+void HuffmanCode::print_no(const HuffmanCode::tree_node *no) const {
     if (no->is_folha) {
         std::cout << "[palavra:'" << no->value.first << "', cod: " << no->codigo << "]";
 //        std::cout << "['" << no->value.first <<  "', *, *]";
@@ -57,13 +57,13 @@ void HuffmanTree::print_no(const HuffmanTree::tree_node *no) const {
 }
 
 
-void HuffmanTree::print_tree() const{
+void HuffmanCode::print_tree() const{
     this->print_no(this->prio_queue->top());
     std::cout << '\n';
 }
 
 
-void HuffmanTree::build_tree() {
+void HuffmanCode::build_tree() {
     auto top_pop = [](auto queue) {
         auto node = queue->top();
         queue->pop();
@@ -82,11 +82,11 @@ void HuffmanTree::build_tree() {
         this->prio_queue->push(z);
     }
 
-    HuffmanTree::generate_codes(this->prio_queue->top(), "");
+    HuffmanCode::generate_codes(this->prio_queue->top(), "");
 }
 
-void HuffmanTree::generate_codes(tree_node *node, const std::string& current_code) {
+void HuffmanCode::generate_codes(tree_node *node, const std::string& current_code) {
     node->codigo = current_code;
-    if(node->left != nullptr) HuffmanTree::generate_codes(node->left, current_code+'0');
-    if(node->right != nullptr) HuffmanTree::generate_codes(node->right, current_code+'1');
+    if(node->left != nullptr) HuffmanCode::generate_codes(node->left, current_code + '0');
+    if(node->right != nullptr) HuffmanCode::generate_codes(node->right, current_code + '1');
 }

@@ -1,7 +1,6 @@
-#include <fstream>
 #include <iostream>
 #include "FrequencyMap.h"
-#include "HuffmanTree.h"
+#include "HuffmanCode.h"
 #include "BitWriter.h"
 
 int main() {
@@ -10,8 +9,9 @@ int main() {
 //
 //	FrequencyMap fm("test_file.txt", FrequencyMap::MODE::word);
 //    fm.print();
-//    HuffmanTree ht(fm);
+//    HuffmanCode ht(fm);
     //ht.compress("biblia.txt", "biblia.cmp");
+
 
     std::string dados("011000100110000101110100011000010111010001100001");
 
