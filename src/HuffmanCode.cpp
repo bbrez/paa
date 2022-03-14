@@ -82,11 +82,16 @@ void HuffmanCode::build_tree() {
         this->prio_queue->push(z);
     }
 
-    HuffmanCode::generate_codes(this->prio_queue->top(), "");
+    this->generate_codes(this->prio_queue->top(), "");
 }
 
 void HuffmanCode::generate_codes(tree_node *node, const std::string& current_code) {
     node->codigo = current_code;
     if(node->left != nullptr) HuffmanCode::generate_codes(node->left, current_code + '0');
     if(node->right != nullptr) HuffmanCode::generate_codes(node->right, current_code + '1');
+    if(node->is_folha) this->codes.emplace(std::pair<std::string, std::string>(node->value.first, node->codigo));
+}
+
+std::string HuffmanCode::get_code(const std::string& palavra) const {
+    return this->codes.at(palavra);
 }

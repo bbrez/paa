@@ -58,7 +58,7 @@ void FrequencyMap::inc(const std::string& s) {
  */
 void FrequencyMap::inc(const unsigned char c){
     this->inc(std::string(1, c));
-}
+}palavra
 
 /**
  * @brief

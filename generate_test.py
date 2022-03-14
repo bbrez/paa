@@ -1,6 +1,6 @@
 import random
 
-palavras = ['a', 'b', 'c', 'd', 'e', '\n']
+palavras = ['peixe', 'porta', 'janela', 'carro', 'sorte', '\n']
 
 texto = list()
 for i in range(1, 20):

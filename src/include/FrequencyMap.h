@@ -7,16 +7,13 @@
 
 #include <string>
 #include <unordered_map>
+#include "FileReader.h"
 
 class FrequencyMap {
 public:
-    typedef enum MODE {
-        character,
-        word
-    } MODE;
 
 	FrequencyMap() = delete;
-	explicit FrequencyMap(const std::string &fn, MODE m);
+	explicit FrequencyMap(const std::string &fn, FileReader::MODE m);
 
 	~FrequencyMap() = default;
 

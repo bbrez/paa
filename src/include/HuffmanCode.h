@@ -18,6 +18,8 @@ public:
     void build_tree();
     void print_tree() const;
 
+    [[nodiscard]] std::basic_string<char> get_code(const std::string& palavra) const;
+
 private:
 
     struct tree_node {
@@ -26,16 +28,19 @@ private:
         std::pair<std::string, int> value;
         struct tree_node *left, *right;
     };
+
     constexpr static auto cmp = [](tree_node *left, tree_node *right){
         return left->value.second > right->value.second;
     };
 
     std::priority_queue<tree_node*, std::vector<tree_node*>, decltype(cmp)> *prio_queue;
 
+    std::unordered_map<std::string, std::string> codes;
+
     void print_no(const tree_node *no) const;
     void delete_no(tree_node *no);
 
-    static void generate_codes(tree_node *node, const std::string& current_code);
+    void generate_codes(tree_node *node, const std::string& current_code);
 };
 
 
