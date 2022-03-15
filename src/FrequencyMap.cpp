@@ -5,35 +5,19 @@
 #include "FrequencyMap.h"
 
 #include <iostream>
-#include <fstream>
-#include <regex>
-
-#include <map>
-
+#include <vector>
 #include "util.h"
 
 
-FrequencyMap::FrequencyMap(const std::string &fn, FrequencyMap::MODE m) {
+FrequencyMap::FrequencyMap(std::ifstream &infile, FileReader::MODE m) {
 	this->total = 0;
 
-	std::ifstream entrada(fn);
-	if(!entrada.is_open()){
-		std::cout << "Erro ao abrir arquivo: [" << fn << "]\n";
-		std::abort();
-	}
-
-	switch (m) {
-		case word:
-			this->parse_as_word(entrada);
-			break;
-		case character:
-			this->parse_as_char(entrada);
-			break;
-		default:
-			std::cout << "Modo de operação invalido\n";
-			std::abort();
-	}
-
+    FileReader fr(infile, m);
+    while(!fr.eof()){
+        std::string palavra = fr.get_next();
+        if(palavra.length() == 0) continue;
+        this->inc(palavra);
+    }
 }
 
 
@@ -50,15 +34,6 @@ void FrequencyMap::inc(const std::string& s) {
 	}
 	this->total++;
 }
-
-/**
- * @brief
- *
- * @param c
- */
-void FrequencyMap::inc(const unsigned char c){
-    this->inc(std::string(1, c));
-}palavra
 
 /**
  * @brief
@@ -88,61 +63,11 @@ void FrequencyMap::print() const {
     std::cout << "Total = " << this->total << '\n';
 }
 
-/**
- * @brief
- *
- * @param entrada
- */
-void FrequencyMap::parse_as_word(std::ifstream &entrada) {
-
-    std::stringstream buffer("");
-    while(!entrada.eof()) {
-        unsigned char lido = entrada.get();
-        if(!entrada.good()) break;
-
-        if(!is_separator(lido)){
-            buffer << lido;
-        } else {
-            if(buffer.str().length() != 0){
-                this->inc(buffer.str());
-                buffer.str(""); //limpa a string
-            }
-            this->inc(lido); //cria uma string de um caractere
-        }
-    }
-
-    if(buffer.str().length() != 0){
-        this->inc(buffer.str());
-    }
-
-}
-
-/**
- * @brief
- *
- * @param entrada
- */
-void FrequencyMap::parse_as_char(std::ifstream &entrada) {
-    const int bf_size = 512;
-
-    std::string buffer;
-    buffer.resize(bf_size);
-    while(!entrada.eof()) {
-        //char *buffer = new char[bf_size];
-        entrada >> buffer;
-
-        for(const auto &c: buffer){
-            this->inc(c);
-        }
-
-        buffer.clear();
-    }
-}
-
 
 const std::unordered_map<std::string, int> &FrequencyMap::get_map() const {
     return this->count_map;
 }
+
 
 int FrequencyMap::get_total() const {
 	return this->total;

@@ -18,7 +18,8 @@ public:
     void build_tree();
     void print_tree() const;
 
-    [[nodiscard]] std::basic_string<char> get_code(const std::string& palavra) const;
+    std::string get_code(const std::string& palavra) const;
+    std::unordered_map<std::string, std::string> get_code_map() const;
 
 private:
 

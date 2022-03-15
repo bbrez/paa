@@ -7,6 +7,7 @@
 
 
 #include <fstream>
+#include <sstream>
 
 class FileReader {
 public:
@@ -17,11 +18,14 @@ public:
 
     FileReader(std::ifstream &infile, MODE m);
 
+    bool eof() const;
     std::string get_next();
+
 private:
 
     MODE m;
     std::ifstream &infile;
+    std::stringstream buffer;
 
     std::string get_char();
     std::string get_word();

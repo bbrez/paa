@@ -5,7 +5,6 @@
 #include "HuffmanCode.h"
 
 #include <iostream>
-#include <fstream>
 
 
 HuffmanCode::HuffmanCode(const FrequencyMap& fm) {
@@ -95,3 +94,8 @@ void HuffmanCode::generate_codes(tree_node *node, const std::string& current_cod
 std::string HuffmanCode::get_code(const std::string& palavra) const {
     return this->codes.at(palavra);
 }
+
+std::unordered_map<std::string, std::string> HuffmanCode::get_code_map() const {
+    return this->codes;
+}
+

@@ -7,18 +7,18 @@
 
 #include <string>
 #include <unordered_map>
+
 #include "FileReader.h"
 
 class FrequencyMap {
 public:
 
 	FrequencyMap() = delete;
-	explicit FrequencyMap(const std::string &fn, FileReader::MODE m);
+	explicit FrequencyMap(std::ifstream &infile, FileReader::MODE m);
 
 	~FrequencyMap() = default;
 
 	void inc(const std::string& s);
-	void inc(unsigned char c);
 
 	void print() const;
 
@@ -30,8 +30,6 @@ private:
     std::unordered_map<std::string, int> count_map;
     int total;
 
-    void parse_as_word(std::ifstream &entrada);
-    void parse_as_char(std::ifstream &entrada);
 };
 
 #endif //PAA_FREQUENCYMAP_H

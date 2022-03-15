@@ -19,7 +19,7 @@ void BitWriter::write(unsigned char bit) {
     this->buffer_bits++;
 
     if(this->buffer_bits == 8){
-        saida << this->buffer;
+        this->saida << this->buffer;
         this->buffer = 0;
         this->buffer_bits = 0;
     }
