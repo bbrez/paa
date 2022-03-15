@@ -13,7 +13,7 @@ public:
     ~BitWriter();
 
     void write(unsigned char bit);
-    void close();
+    unsigned char close();
 private:
     unsigned char buffer;
     int buffer_bits;

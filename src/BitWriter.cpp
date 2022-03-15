@@ -25,8 +25,10 @@ void BitWriter::write(unsigned char bit) {
     }
 }
 
-void BitWriter::close() {
+unsigned char BitWriter::close() {
+    int last_bits = this->buffer_bits;
     while (this->buffer_bits != 0) {
         this->write(0);
     }
+    return last_bits; //retorna quantos bits foram escritos no ultimo byte
 }

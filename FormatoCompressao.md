@@ -4,7 +4,7 @@
 
 `data_offset` --> deslocamento do inicio da seção de dados do arquivo
 
-`mode` --> modo de leitura do arquivo original (0 para caractere e 1 para palavra)
+`last_byte_size` --> quantos bits significativos estão no ultimo byte do arquivo
 
 `translation_dict` --> dicionario para decodificação do arquivo (tam|palavra|tam|bin)
 
