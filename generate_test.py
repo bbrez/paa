@@ -3,7 +3,7 @@ import random
 palavras = ['peixe', 'porta', 'gato', 'melancia', 'banana', '\n']
 
 texto = list()
-for i in range(1, 5000):
+for i in range(1, 50000):
     texto.append(random.choice(palavras))
 
 texto = ' '.join(texto)

@@ -4,7 +4,7 @@
 
 #include "BitReader.h"
 
-BitReader::BitReader(std::ifstream &entrada): entrada(entrada){
+BitReader::BitReader(std::ifstream &entrada, unsigned char last_bits): last_bits(last_bits), entrada(entrada){
     this->buffer = entrada.get();
     this->buffer_bits = 8;
 }
@@ -24,7 +24,9 @@ unsigned char BitReader::read() {
 }
 
 bool BitReader::has_next() const {
-    return this->entrada.peek() != EOF || this->buffer_bits > 0;
+    if(this->entrada.peek() != EOF) return true;
+    if(this->buffer > this-> last_bits) return true;
+    return false;
 }
 
 

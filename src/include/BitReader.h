@@ -9,13 +9,14 @@
 
 class BitReader {
 public:
-    explicit BitReader(std::ifstream &entrada);
+    explicit BitReader(std::ifstream &entrada, unsigned char last_bits);
     ~BitReader() = default;
 
     unsigned char read();
-    bool has_next() const;
+    [[nodiscard]] bool has_next() const;
 private:
     unsigned char buffer;
+    unsigned char last_bits;
     int buffer_bits;
     std::ifstream &entrada;
 };

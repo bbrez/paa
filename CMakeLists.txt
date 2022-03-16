@@ -15,5 +15,5 @@ add_executable(paa src/main.cpp
         src/include/BitWriter.h
         src/include/Compressor.h
         src/include/FrequencyMap.h
-        src/include/FileReader.h src/BitReader.cpp src/BitReader.h src/Decompressor.cpp src/include/Decompressor.h)
+        src/include/FileReader.h src/BitReader.cpp src/include/BitReader.h src/Decompressor.cpp src/include/Decompressor.h)
 target_compile_options(paa PRIVATE -Wall -Wextra -Wpedantic)
