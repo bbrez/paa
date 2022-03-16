@@ -6,7 +6,7 @@
 
 `last_byte_size` --> quantos bits significativos estão no ultimo byte do arquivo
 
-`translation_dict` --> dicionario para decodificação do arquivo (tam|palavra|tam|bin)
+`translation_dict` --> dicionario para decodificação do arquivo [tam|palavra|tam|bin]
 
 ## Dados
 

@@ -22,7 +22,7 @@ bool is_separator(unsigned char c){
 
     return std::ranges::any_of(separator_list.begin(), separator_list.end(), compare);
 
-//    for(const auto &comp: separator_list){
+//    for(const auto &comp: separator_list){ //mais lento
 //        if(comp == c) return true;
 //    }
 //    return false;
@@ -32,4 +32,23 @@ std::string to_hex(unsigned char c) {
     std::stringstream buffer;
     buffer << "\\0x" << std::uppercase << std::hex << (int)c << std::dec;
     return buffer.str();
+}
+
+std::string read_string(std::ifstream &file) {
+    unsigned char tam;
+    char *str;
+    file.read(reinterpret_cast<char *>(&tam), sizeof(unsigned char)); //ler o tamanho da string
+    str = new char[tam];
+    file.read(str, tam);
+    str[tam]='\0';
+
+    std::string retorno(str);
+    delete[] str;
+    return retorno;
+}
+
+void write_string(std::ofstream &file, const std::string& str) {
+    unsigned char tam = str.length();
+    file.write(reinterpret_cast<const char*>(&tam), sizeof(unsigned char));
+    file.write(str.c_str(), tam);
 }

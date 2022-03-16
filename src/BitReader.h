@@ -13,7 +13,7 @@ public:
     ~BitReader() = default;
 
     unsigned char read();
-    bool has_next();
+    bool has_next() const;
 private:
     unsigned char buffer;
     int buffer_bits;

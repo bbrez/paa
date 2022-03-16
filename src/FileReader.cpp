@@ -12,7 +12,7 @@ FileReader::FileReader(std::ifstream &infile, MODE m) : m(m), infile(infile) {
 }
 
 bool FileReader::eof() const {
-    return this->infile.eof();
+    return this->infile.peek() == EOF;
 }
 
 std::string FileReader::get_next() {
@@ -36,12 +36,12 @@ std::string FileReader::get_char() {
 //    return {static_cast<char>(c)};
     unsigned char lido = this->infile.get();
     if(!this->infile.good()) return std::string("");
-    return std::string(1, this->infile.get());
+    return std::string(1, lido);
 }
 
 std::string FileReader::get_word() {
     buffer.str("");
-    while(!this->infile.eof()){
+    while(this->infile.peek() != EOF){
         unsigned char lido = this->infile.get();
         if(!this->infile.good()) break; //Se tiver erro ao ler o arquivo
 
