@@ -7,18 +7,22 @@
 
 #include <fstream>
 
-class BitWriter {
-public:
-    explicit BitWriter(std::ofstream &saida);
-    ~BitWriter();
+namespace paa {
+    class BitWriter {
+    public:
+        explicit BitWriter(std::ofstream &saida);
 
-    void write(unsigned char bit);
-    unsigned char close();
-private:
-    unsigned char buffer;
-    int buffer_bits;
-    std::ofstream &saida;
+        ~BitWriter();
+
+        void write(unsigned char bit);
+
+        unsigned char close();
+
+    private:
+        unsigned char buffer;
+        int buffer_bits;
+        std::ofstream &saida;
+    };
 };
-
 
 #endif //PAA_BITWRITER_H

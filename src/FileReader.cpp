@@ -2,10 +2,9 @@
 // Created by minorro on 3/14/22.
 //
 
-#include <iostream>
 #include "FileReader.h"
-#include "util.h"
 
+using namespace paa;
 
 FileReader::FileReader(std::ifstream &infile, MODE m) : m(m), infile(infile) {
     this->buffer.str("");
@@ -21,6 +20,8 @@ std::string FileReader::get_next() {
             return this->get_char();
         case word:
             return this->get_word();
+        default:
+            return "";
     }
 }
 

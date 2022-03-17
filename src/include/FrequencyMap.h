@@ -10,26 +10,27 @@
 
 #include "FileReader.h"
 
-class FrequencyMap {
-public:
+namespace paa {
+    class FrequencyMap {
+    public:
 
-	FrequencyMap() = delete;
-	explicit FrequencyMap(std::ifstream &infile, FileReader::MODE m);
+        FrequencyMap() = delete;
 
-	~FrequencyMap() = default;
+        explicit FrequencyMap(std::ifstream &infile, FileReader::MODE m);
 
-	void inc(const std::string& s);
+        ~FrequencyMap() = default;
 
-	void print() const;
+        void inc(const std::string &s);
 
-    const std::unordered_map<std::string, int> &get_map() const;
-	int get_total() const;
+        void print() const;
 
-private:
+        const std::unordered_map<std::string, int> &get_map() const;
 
-    std::unordered_map<std::string, int> count_map;
-    int total;
+    private:
 
+        std::unordered_map<std::string, int> count_map;
+        int total;
+
+    };
 };
-
 #endif //PAA_FREQUENCYMAP_H

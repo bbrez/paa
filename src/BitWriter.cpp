@@ -4,6 +4,8 @@
 
 #include "BitWriter.h"
 
+using namespace paa;
+
 BitWriter::BitWriter(std::ofstream &saida) : saida(saida) {
     this->buffer = 0;
     this->buffer_bits = 0;

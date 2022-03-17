@@ -8,6 +8,8 @@
 #include "BitWriter.h"
 #include "util.h"
 
+using namespace paa;
+
 Compressor::Compressor(const HuffmanCode& hc) : hc(hc) {}
 
 /**
@@ -35,7 +37,7 @@ void Compressor::write_header(std::ofstream &outfile) {
     for(const auto &par: hc.get_code_map()){
         write_string(outfile, par.first);
         write_string(outfile, par.second);
-  }
+    }
 
     offset_dados = outfile.tellp();
     outfile.seekp(0);

@@ -8,6 +8,7 @@
 #include <vector>
 #include "util.h"
 
+using namespace paa;
 
 FrequencyMap::FrequencyMap(std::ifstream &infile, FileReader::MODE m) {
 	this->total = 0;
@@ -66,9 +67,4 @@ void FrequencyMap::print() const {
 
 const std::unordered_map<std::string, int> &FrequencyMap::get_map() const {
     return this->count_map;
-}
-
-
-int FrequencyMap::get_total() const {
-	return this->total;
 }

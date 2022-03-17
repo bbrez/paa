@@ -9,26 +9,30 @@
 #include <fstream>
 #include <sstream>
 
-class FileReader {
-public:
-    typedef enum MODE {
-        character,
-        word
-    } MODE;
+namespace paa {
+    class FileReader {
+    public:
+        typedef enum MODE {
+            character,
+            word
+        } MODE;
 
-    FileReader(std::ifstream &infile, MODE m);
+        FileReader(std::ifstream &infile, MODE m);
 
-    bool eof() const;
-    std::string get_next();
+        bool eof() const;
 
-private:
+        std::string get_next();
 
-    MODE m;
-    std::ifstream &infile;
-    std::stringstream buffer;
+    private:
 
-    std::string get_char();
-    std::string get_word();
+        MODE m;
+        std::ifstream &infile;
+        std::stringstream buffer;
+
+        std::string get_char();
+
+        std::string get_word();
+    };
 };
 
 

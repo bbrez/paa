@@ -8,18 +8,21 @@
 
 #include "HuffmanCode.h"
 
-class Compressor {
-public:
-    explicit Compressor(const HuffmanCode& hc);
+namespace paa {
+    class Compressor {
+    public:
+        explicit Compressor(const HuffmanCode &hc);
 
-    void compress(std::ifstream &infile, FileReader::MODE m, std::ofstream &outfile);
-private:
+        void compress(std::ifstream &infile, FileReader::MODE m, std::ofstream &outfile);
 
-    HuffmanCode hc;
+    private:
 
-    void write_header(std::ofstream& outfile);
-    void write_data(std::ifstream &infile, FileReader::MODE m, std::ofstream &outfile);
+        HuffmanCode hc;
+
+        void write_header(std::ofstream &outfile);
+
+        void write_data(std::ifstream &infile, FileReader::MODE m, std::ofstream &outfile);
+    };
 };
-
 
 #endif //PAA_COMPRESSOR_H

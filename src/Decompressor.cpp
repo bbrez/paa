@@ -6,6 +6,7 @@
 #include "util.h"
 #include "BitReader.h"
 
+using namespace paa;
 
 void Decompressor::decompress(std::ifstream &infile, std::ofstream &outfile) {
     pos_dados = 0;

@@ -7,12 +7,13 @@
 #include <algorithm>
 #include <sstream>
 
-bool is_printable(unsigned char c) {
+
+bool paa::is_printable(unsigned char c) {
 	return c > 32;
 }
 
 
-bool is_separator(unsigned char c){
+bool paa::is_separator(unsigned char c){
     std::vector<char> separator_list = {' ', ',', '.', '?', '!', ';', '\n', '\t', '\r',
                                         ':', '(', ')', '[', ']', '{', '}', '\'', '\"'};
 
@@ -28,13 +29,13 @@ bool is_separator(unsigned char c){
 //    return false;
 }
 
-std::string to_hex(unsigned char c) {
+std::string paa::to_hex(unsigned char c) {
     std::stringstream buffer;
     buffer << "\\0x" << std::uppercase << std::hex << (int)c << std::dec;
     return buffer.str();
 }
 
-std::string read_string(std::ifstream &file) {
+std::string paa::read_string(std::ifstream &file) {
     unsigned char tam;
     char *str;
     file.read(reinterpret_cast<char *>(&tam), sizeof(unsigned char)); //ler o tamanho da string
@@ -47,7 +48,7 @@ std::string read_string(std::ifstream &file) {
     return retorno;
 }
 
-void write_string(std::ofstream &file, const std::string& str) {
+void paa::write_string(std::ofstream &file, const std::string& str) {
     unsigned char tam = str.length();
     file.write(reinterpret_cast<const char*>(&tam), sizeof(unsigned char));
     file.write(str.c_str(), tam);

@@ -6,6 +6,7 @@
 
 #include <iostream>
 
+using namespace paa;
 
 HuffmanCode::HuffmanCode(const FrequencyMap& fm) {
 

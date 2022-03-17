@@ -38,23 +38,23 @@ int main() {
             std::cin >> ofn;
 
             if(selecionado == 1 || selecionado == 2){
-                FileReader::MODE m = selecionado==1 ? FileReader::MODE::word : FileReader::MODE::character;
+                paa::FileReader::MODE m = selecionado==1 ? paa::FileReader::MODE::word : paa::FileReader::MODE::character;
                 entrada.open(ifn);
-                FrequencyMap fm(entrada, m);
+                paa::FrequencyMap fm(entrada, m);
                 entrada.close();
                 //fm.print();
 
-                HuffmanCode hc(fm);
+                paa::HuffmanCode hc(fm);
                 hc.build_tree();
 
-                Compressor c(hc);
+                paa::Compressor c(hc);
                 entrada.open(ifn);
                 saida.open(ofn, std::ios::binary);
                 c.compress(entrada, m, saida);
             } else if(selecionado == 3){
                 entrada.open(ifn, std::ios::binary);
                 saida.open(ofn);
-                Decompressor d;
+                paa::Decompressor d;
                 d.decompress(entrada, saida);
             } else std::cout << "Opção Inválida\n";
         }
