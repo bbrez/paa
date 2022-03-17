@@ -7,10 +7,14 @@
 
 #include <string>
 #include <queue>
+#include <functional>
 
 #include "FrequencyMap.h"
 
 namespace paa {
+
+
+
     class HuffmanCode {
     public:
         explicit HuffmanCode(const paa::FrequencyMap &fm);
@@ -34,11 +38,7 @@ namespace paa {
             struct tree_node *left, *right;
         };
 
-        constexpr static auto cmp = [](tree_node *left, tree_node *right) {
-            return left->value.second > right->value.second;
-        };
-
-        std::priority_queue<HuffmanCode::tree_node *, std::vector<HuffmanCode::tree_node *>, decltype(HuffmanCode::cmp)> *prio_queue;
+        std::priority_queue<HuffmanCode::tree_node *, std::vector<HuffmanCode::tree_node *>, std::function<bool(tree_node*, tree_node*)>> *prio_queue;
 
         std::unordered_map<std::string, std::string> codes;
 

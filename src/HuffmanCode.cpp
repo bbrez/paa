@@ -9,6 +9,10 @@
 using namespace paa;
 
 HuffmanCode::HuffmanCode(const FrequencyMap& fm) {
+	//função de comparação para a lista de prioridade
+	std::function<bool(HuffmanCode::tree_node*, HuffmanCode::tree_node*)> cmp = [](tree_node *left, tree_node *right) {
+		return left->value.second > right->value.second;
+	};
 
     this->prio_queue = new std::priority_queue<tree_node*, std::vector<tree_node*>, decltype(cmp)>(cmp);
     for (const auto &no: fm.get_map()) {

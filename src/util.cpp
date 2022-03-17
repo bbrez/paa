@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <sstream>
 
+#include <iostream>
 
 bool paa::is_printable(unsigned char c) {
 	return c > 32;
@@ -39,12 +40,14 @@ std::string paa::read_string(std::ifstream &file) {
     unsigned char tam;
     char *str;
     file.read(reinterpret_cast<char *>(&tam), sizeof(unsigned char)); //ler o tamanho da string
-    str = new char[tam];
+    str = new char[tam+1];
     file.read(str, tam);
     str[tam]='\0';
 
     std::string retorno(str);
-    delete[] str;
+
+	delete[] str;
+
     return retorno;
 }
 

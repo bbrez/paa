@@ -5,7 +5,7 @@ palavras = ['peixe', 'porta', 'gato', 'melancia', 'banana', '\n']
 tam = int(input('Tamanho do arquivo em kb'))
 
 texto = list()
-for i in range(1, 50000):
+for i in range(1, 1000*tam/5):
     texto.append(random.choice(palavras))
 
 texto = ' '.join(texto)

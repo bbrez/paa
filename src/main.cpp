@@ -9,7 +9,12 @@
 
 int main() {
 
+	//Código para arrumar acentuação de palavras
+#if defined(__unix__)
     std::setlocale(LC_ALL, "pt_BR.UTF-8");
+#elif defined(_WIN32) || defined(_WIN64)
+	std::system("chcp 65001 > nul");
+#endif
 
     bool running = true;
     while(running){
@@ -23,7 +28,7 @@ int main() {
         }
 
         int selecionado = 0;
-        std::cout << "Seleção: ";
+        std::wcout << "Seleção: ";
         std::cin >> selecionado;
 
         std::ifstream entrada;
