@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <chrono>
 
 #include "FrequencyMap.h"
 #include "HuffmanCode.h"
@@ -42,6 +43,7 @@ int main() {
             std::cout << "Caminho do arquivo de saida: ";
             std::cin >> ofn;
 
+			auto start = std::chrono::high_resolution_clock::now();
             if(selecionado == 1 || selecionado == 2){
                 paa::FileReader::MODE m = selecionado==1 ? paa::FileReader::MODE::word : paa::FileReader::MODE::character;
                 entrada.open(ifn);
@@ -62,6 +64,10 @@ int main() {
                 paa::Decompressor d;
                 d.decompress(entrada, saida);
             } else std::cout << "Opção Inválida\n";
+
+			auto stop = std::chrono::high_resolution_clock::now();
+			auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop-start);
+			std::cout << "Tempo de execução: " << duration.count() << " milisegundos\n";
         }
     }
 }
