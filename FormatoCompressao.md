@@ -2,11 +2,15 @@
 
 ## Cabeçalho
 
-`data_offset` --> deslocamento do inicio da seção de dados do arquivo
+`data_offset` --> deslocamento do inicio da seção de dados do arquivo [unsigned int, 4 bytes]
 
-`last_byte_size` --> quantos bits significativos estão no ultimo byte do arquivo
+`last_byte_size` --> quantos bits significativos estão no ultimo byte do arquivo [unsigned char, 1 byte]
 
 `translation_dict` --> dicionario para decodificação do arquivo [tam|palavra|tam|bin]
+
+* tam --> comprimento da string que segue, 1 byte
+* palavra --> texto da palavra no arquivo original, {tam} bytes
+* bin --> codigo binario da que representa a palavra no arquivo comprimido, {tam} bytes
 
 ## Dados
 

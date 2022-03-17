@@ -15,8 +15,8 @@ public:
     void decompress(std::ifstream &infile, std::ofstream &outfile);
 private:
     std::unordered_map<std::string, std::string> code_map;
-    unsigned int pos_dados;
-    unsigned char last_bits;
+    unsigned int pos_dados{};
+    unsigned char last_bits{};
 
     void read_header(std::ifstream &infile);
     void read_data(std::ifstream &infile, std::ofstream &outfile);

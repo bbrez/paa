@@ -60,7 +60,7 @@ void Compressor::write_data(std::ifstream &infile, FileReader::MODE m, std::ofst
         }
     }
 
-    std::cout << "escrito " << bits/8 << " bytes e " << bits%8 << " bits\n";
+    //std::cout << "escrito " << bits/8 << " bytes e " << bits%8 << " bits\n";
     unsigned char last_bytes = bw.close();
     outfile.seekp(sizeof(unsigned int));
     outfile.write(reinterpret_cast<const char*>(&last_bytes), sizeof(unsigned char));
