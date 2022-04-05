@@ -1,4 +1,5 @@
 # Trabalho de Projeto e Análise de Algoritmos
+Por Bruno de Castro Brezolin e Vinicius Yuri Capponi
 ## Compactador de arquivos utilizando Código de Huffman
 ### Instruções de Compilação
 **[Atenção] O programa foi desenvolvido utilizando o padrão C++20, testado nos compiladores gcc(versão 11.2) e clang(13.0)**
