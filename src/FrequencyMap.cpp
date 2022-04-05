@@ -10,6 +10,15 @@
 
 using namespace paa;
 
+/**
+ * @brief Constroi um novo objeto FrequencyMap
+ * 
+ * @param infile arquivo a ser lido
+ * @param m modo de leitura do arquivo
+ * 
+ * @pre o arquivo deve ser aberto e o modo deve ser válido
+ * @post o objeto é criado, pronto para utilização, com as frequências já calculadas
+ */
 FrequencyMap::FrequencyMap(std::ifstream &infile, FileReader::MODE m) {
 	this->total = 0;
 
@@ -21,11 +30,12 @@ FrequencyMap::FrequencyMap(std::ifstream &infile, FileReader::MODE m) {
     }
 }
 
-
 /**
- * @brief
- *
- * @param s
+ * @brief função de incremento de uma palavra no mapa de frequência
+ * 
+ * @param s palavra a ser incrementada
+ * 
+ * @post a palavra é incrementada se já existia no mapa, se não existia é inserida com valor 1
  */
 void FrequencyMap::inc(const std::string& s) {
 	if(this->count_map.contains(s)){
@@ -37,8 +47,10 @@ void FrequencyMap::inc(const std::string& s) {
 }
 
 /**
- * @brief
- *
+ * @brief escreve no terminal a representação do mapa de frequência
+ * 
+ * @pre o mapa de frequência deve ser bem formado
+ * @post o mapa de frequencia é escrito no terminal
  */
 void FrequencyMap::print() const {
 
@@ -64,7 +76,13 @@ void FrequencyMap::print() const {
     std::cout << "Total = " << this->total << '\n';
 }
 
-
+/**
+ * @brief Getter do mapa de frequências
+ * 
+ * @return const std::unordered_map<std::string, int>& referência do mapa de frequência
+ * 
+ * @post função não altera o estado do programa
+ */
 const std::unordered_map<std::string, int> &FrequencyMap::get_map() const {
     return this->count_map;
 }

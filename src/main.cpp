@@ -29,7 +29,7 @@ int main() {
         }
 
         int selecionado = 0;
-        std::wcout << "Seleção: ";
+        std::cout << "Seleção: ";
         std::cin >> selecionado;
 
         std::ifstream entrada;
@@ -44,7 +44,7 @@ int main() {
             std::cin >> ofn;
 
 			auto start = std::chrono::high_resolution_clock::now();
-            if(selecionado == 1 || selecionado == 2){
+            if(selecionado == 1 || selecionado == 2){ //compressão
                 paa::FileReader::MODE m = selecionado==1 ? paa::FileReader::MODE::word : paa::FileReader::MODE::character;
                 entrada.open(ifn);
                 paa::FrequencyMap fm(entrada, m);
@@ -52,13 +52,11 @@ int main() {
                 //fm.print();
 
                 paa::HuffmanCode hc(fm);
-                hc.build_tree();
-
                 paa::Compressor c(hc);
                 entrada.open(ifn);
                 saida.open(ofn, std::ios::binary);
                 c.compress(entrada, m, saida);
-            } else if(selecionado == 3){
+            } else if(selecionado == 3){ //descompressão
                 entrada.open(ifn, std::ios::binary);
                 saida.open(ofn);
                 paa::Decompressor d;

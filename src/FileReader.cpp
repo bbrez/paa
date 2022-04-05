@@ -7,14 +7,39 @@
 
 using namespace paa;
 
+/**
+ * @brief Constroi um novo objeto FileReader
+ * 
+ * @param infile arquivo que será lido
+ * @param m modo de leitura do arquiv
+ * 
+ * @pre arquivo deve estar aberto e o modo deve ser válido
+ * @post o objeto é criado, pronto para leitura de um arquivo
+ */
 FileReader::FileReader(std::ifstream &infile, MODE m) : m(m), infile(infile) {
     this->buffer.str("");
 }
 
+/**
+ * @brief verifica se o arquivo acabou
+ * 
+ * @return true o arquivo acabou
+ * @return false o arquivo ainda não acabou
+ * 
+ * @pre o arquivo deve estar aberto
+ * @post função não modifica o estado do programa
+ */
 bool FileReader::eof() const {
     return this->infile.peek() == EOF;
 }
 
+/**
+ * @brief lê a próxima palavra ou caractere do arquivo
+ * 
+ * @return std::string dados lidos
+ * @pre o arquivo deve estar aberto e não acabado
+ * @post o arquivo pode ter acabado após a leitura e deve ser verificado
+ */
 std::string FileReader::get_next() {
     switch (this->m) { //utiliza o get apropriado para o modo de leitura
         case character:
@@ -26,6 +51,13 @@ std::string FileReader::get_next() {
     }
 }
 
+/**
+ * @brief lê um caractere do arquivo
+ * 
+ * @return std::string caractere lido
+ * @pre o arquivo deve estar aberto e não acabado
+ * @post o arquivo pode ter acabado após a leitura e deve ser verificado
+ */
 std::string FileReader::get_char() {
 //    if(this->buffer.eof()){
 //        this->buffer.clear();
@@ -41,6 +73,13 @@ std::string FileReader::get_char() {
     return std::string(1, lido);
 }
 
+/**
+ * @brief lê uma palavra do arquivo
+ * 
+ * @return std::string palavra lida
+ * @pre o arquivo deve estar aberto e não acabado
+ * @post o arquivo pode ter acabado após a leitura e deve ser verificado
+ */
 std::string FileReader::get_word() {
     buffer.str("");
     while(this->infile.peek() != EOF){

@@ -10,22 +10,38 @@
 
 using namespace paa;
 
+/**
+ * @brief Constroi um novo objeto Compressor
+ * 
+ * @param hc Objeto HuffmanCode com o código de cada letra ou palavra que será utilizado na compressão
+ * 
+ * @pre o objeto HuffmanCode deve possuir um código bem formado
+ * @post o objeto é criado, pronto para compressão de um arquivo
+ */
 Compressor::Compressor(const HuffmanCode& hc) : hc(hc) {}
 
 /**
- * @pre infile aberto como arquivo texto e pronto para leitura
- * @pre outfile aberto como arquivo binario e pronto para escrita
- * @param infile
- * @param m
- * @param outfile
- * @post os arquivos utilizados devem ser fechados
+ * @brief faz a compressão do arquivo
+ * 
+ * @param infile arquivo de onde é lido os dados a serem comprimidos
+ * @param m o modo em que o arquivo está sendo comprimido
+ * @param outfile arquivo onde será escrito os dados comprimidos
+ * 
+ * @pre os arquivos devem estar abertos e em seu inicio, o modo de leitura deve ser um valor adequado
  */
 void Compressor::compress(std::ifstream &infile, FileReader::MODE m, std::ofstream &outfile) {
     write_header(outfile);
     write_data(infile, m, outfile);
 }
 
-
+/**
+ * @brief escreve o cabeçalho do arquivo comprimido
+ * 
+ * @param outfile arquivo em que será escrito o cabeçalho
+ * 
+ * @pre o arquivo a ser escrito está aberto e em seu inicio, o código de huffman está preenchido
+ * @post o arquivo de saida possui o cabeçalho escrito e aponta para a posição seguindo ele
+ */
 void Compressor::write_header(std::ofstream &outfile) {
     unsigned int offset_dados = 0;
     unsigned char last_bits = 0;
@@ -45,7 +61,16 @@ void Compressor::write_header(std::ofstream &outfile) {
     outfile.seekp(offset_dados);
 }
 
-
+/**
+ * @brief escreve os dados do arquivo comprimido
+ * 
+ * @param infile arquivo em que serão lidas as palavras
+ * @param m modo em que serão lidas as palavras
+ * @param outfile arquivo em que serão escritos os dados
+ * 
+ * @pre ambos arquivos abertos, arquivo de entrada no inicio, arquivo de saida posicionado após o cabeçalho, modo de leitura valido
+ * @post o arquivo de saida tem os dados escritos e pode ser fechado
+ */
 void Compressor::write_data(std::ifstream &infile, FileReader::MODE m, std::ofstream &outfile) {
     BitWriter bw(outfile);
     FileReader fr(infile, m);
