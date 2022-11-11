@@ -1,39 +1,46 @@
-#ifndef PAA2_ARESTA_H
-#define PAA2_ARESTA_H
-
+#ifndef PAA_ARESTA_H
+#define PAA_ARESTA_H
 
 #include <memory>
 
-
 namespace paa {
-    class Vertice;
+class Vertice;
 
-    class Aresta {
-    public:
-        /**
-         * Construtor de uma aresta
-         * @param destino destino da aresta
-         * @param peso peso da aresta
-         */
-        Aresta(std::shared_ptr<Vertice> destino, int peso);
+class Aresta {
+public:
 
-        /**
-         * Retorna ponteiro do destino da aresta
-         * @return ponteiro do destino da aresta
-         */
-        std::shared_ptr<Vertice> getDestino() const;
+    /**
+     * @brief Constroi uma nova aresta
+     * @param destino destino da aresta
+     * @param peso peso da aresta
+     */
+    Aresta(std::shared_ptr<Vertice> destino, int peso);
 
-        /**
-         * Get peso da aresta
-         * @return peso da aresta
-         */
-        int getPeso() const;
+    /**
+     * @brief Retorna o ponteiro do destino da aresta
+     * @return std::shared_ptr<Vertice> destino da aresta
+     */
+    std::shared_ptr<Vertice> getDestino() const;
 
-    private:
-        std::shared_ptr<Vertice> destino;
-        int peso;
-    };
+    /*
+     * @brief Retorna o peso da aresta
+     * @return int 
+     */
+    int getPeso() const;
 
-}
+    /**
+     * @brief Muda o peso de uma aresta e retorna o novo valor
+     * @param novo_peso
+     * @return int
+     */
+    int operator[](int novo_peso);
 
-#endif //PAA2_ARESTA_H
+private:
+
+    std::shared_ptr<Vertice> destino;
+    int peso;
+};
+
+} // namespace paa
+
+#endif //PAA_ARESTA_H
